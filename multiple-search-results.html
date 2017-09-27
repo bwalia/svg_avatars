@@ -1,0 +1,123 @@
+<!doctype html>
+<HTML>
+<HEAD>
+<META CHARSET="UTF-8">
+<TITLE>Help Section</TITLE>
+<link REL="STYLESHEET" HREF="css/bootstrap.css" TYPE="TEXT/CSS">
+<link REL="STYLESHEET" HREF="css/font-awesome.css" TYPE="TEXT/CSS">
+
+</HEAD>
+
+<BODY>
+	<div CLASS="container">
+		<div class="row" STYLE="margin-top:10px;">
+			<div class=" col-lg-4 col-md-6 col-sm-12">
+				<h1>Search answers</h1>
+			</div>
+			<div class=" col-lg-3 col-md-6 col-sm-12 col-xs-12 pull-right" style=" margin-top:20px;">
+				<div class="input-group stylish-input-group">
+					<input class="form-control" placeholder="Say..." id="menu" type="text">
+					<span class="input-group-addon">
+						<button type="submit" style="border: 0px none; background: transparent none repeat scroll 0% 0%; padding:0px;" onClick="searchResults(); return false;"> <i class="fa fa-search"></i> </button>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div CLASS="row mrtp40" id="dashboard_menu">
+		</div>
+		<div id="img_loading_div" style="text-align:center">
+			<img src="images/loading.gif"  style="padding:20px; width:195px;"  >
+		</div>
+	</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+var showAnimationBool=false, timer="";
+function searchResults(){
+	showAnimationBool = false;
+	$('#dashboard_menu').html('');
+	$('#img_loading_div').show();
+	load_data();
+}
+
+function startAnimation(id, img1, img2){
+	showAnimationBool = true;
+	loadanimation(id, img1, img2);
+}
+
+function loadanimation(id, img1, img2) {
+	if(showAnimationBool){
+	var element = document.getElementById(id);
+	
+	if(element.classList.contains('animation')){
+		element.classList.remove("animation");
+		element.src = img2;
+	} else	{
+		element.classList.add("animation");
+		element.src = img1;
+	}
+	
+	timer= setTimeout("loadanimation('"+id+"', '"+img1+"', '"+img2+"')", 1500);
+    return true;
+    }
+}
+
+function stopAnimation(){
+	showAnimationBool = false;
+	clearTimeout(timer);
+}
+
+function load_data(){
+	$(".alert").remove();
+	var keyword= $("#menu").val().toLowerCase(); ;
+	var menu_html="";
+	
+	if(keyword!=""){
+	var smileSearchStr="smile happy";
+	if(smileSearchStr.indexOf(keyword)>=0)	{
+		menu_html+='<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><a class="panel padding-md display-block text-center" href="javascript:void(0)" onmouseout="stopAnimation();" onmouseover="stopAnimation(); startAnimation(\'smiling_user\', \'images/smiling.svg\', \'images/user.svg\');"><IMG SRC="images/smiling.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+	}
+	var sadSearchStr="cry";
+	if(sadSearchStr.indexOf(keyword)>=0)	{
+		menu_html+='<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><a class="panel padding-md display-block text-center" href="javascript:void(0)" onmouseout="stopAnimation();" onmouseover="stopAnimation(); startAnimation(\'cry_user\', \'images/crying.svg\', \'images/user.svg\');"><IMG SRC="images/crying.svg" id="cry_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+	}
+	var angrySearchStr="angry anger annoyed";
+	if(angrySearchStr.indexOf(keyword)>=0)	{
+		menu_html+='<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><a class="panel padding-md display-block text-center" href="javascript:void(0)" onmouseout="stopAnimation();" onmouseover="stopAnimation(); startAnimation(\'angry_user\', \'images/angry.svg\', \'images/user.svg\');"><IMG SRC="images/angry.svg" id="angry_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+	}
+	var thinkSearchStr="thinking";
+	if(thinkSearchStr.indexOf(keyword)>=0)	{
+		menu_html+='<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><a class="panel padding-md display-block text-center" href="javascript:void(0)" onmouseout="stopAnimation();" onmouseover="stopAnimation(); startAnimation(\'thinking_user\', \'images/thinking.svg\', \'images/user.svg\');"><IMG SRC="images/thinking.svg" id="thinking_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+	}
+	}else{
+		$('#dashboard_menu').before('<div class="alert alert-danger">No answers available!</div>');
+		$('#dashboard_menu').html('');
+	}
+	$('#img_loading_div').hide();
+}
+
+$(document).ready(function() {
+	$("#menu").focus();
+	load_data();
+	
+	var typingTimer;                //timer identifier
+	var doneTypingInterval = 1000;  //time in ms, 5 second for example
+	
+	$('#menu').keyup(function(){
+		clearTimeout(typingTimer);
+		if ($('#menu').val) {
+			typingTimer = setTimeout(function(){
+				$('#dashboard_menu').html('');
+				$('#img_loading_div').show();
+				load_data();
+			}, doneTypingInterval);
+		}
+	});			
+});
+</script>
+</BODY>
+</HTML>

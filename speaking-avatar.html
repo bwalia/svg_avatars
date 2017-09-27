@@ -1,0 +1,37 @@
+<html>
+  <head>
+	<title>HTML</title>
+   	<script type = "text/javascript">
+function stopSpeaking(){
+	document.getElementById("status").value = 0;
+	var element = document.getElementById('avatarImg');
+	element.src = "images/speaking/1.svg";
+}
+
+function startSpeaking(){
+	document.getElementById("status").value = 1;
+	avatarSpeaking();
+}
+
+function avatarSpeaking(){
+	var statusVal = document.getElementById('status').value;
+	//console.log(statusVal)
+	if(statusVal==1){
+		var element = document.getElementById('avatarImg');
+		var imgAr = ['3.svg', '4.svg', '5.svg', '6.svg', '7.svg', '8.svg'];
+		var num = Math.floor( Math.random() * imgAr.length );
+    	element.src = "images/speaking/"+imgAr[num];
+    
+   		setTimeout(avatarSpeaking,500);
+   		return true;
+    }   
+}
+      </script>
+   </head>
+
+   	<body>
+   		<button onClick="startSpeaking();">Start speaking</button>&nbsp;<button onClick="stopSpeaking();">Stop speaking</button>
+  		<img src="images/speaking/1.svg" id="avatarImg" width="500px;">
+  		<input type="hidden" id="status" value="0">
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+  <head>
+	<title>HTML</title>
+	<link REL="STYLESHEET" HREF="css/bootstrap.css" TYPE="TEXT/CSS">
+	
+   	<script type = "text/javascript">
+var timer="";
+function loadanimation(id, img1, img2) {
+	var element = document.getElementById(id);
+	
+	if(element.classList.contains('animation')){
+		element.classList.remove("animation");
+		element.src = img2;
+	} else	{
+		element.classList.add("animation");
+		element.src = img1;
+	}
+	
+	timer = setTimeout("loadanimation('"+id+"', '"+img1+"', '"+img2+"')",1000);
+    return true;
+}
+function stopFirstLoadedAnimation(){
+	clearTimeout(timer);
+}
+      </script>
+   </head>
+
+   	<body>
+  		<img src="images/user.svg" id="user" width="500px;">
+  		
+  		<a HREF="javascript:void(0)" CLASS="btn btn-primary" onClick="stopFirstLoadedAnimation(); loadanimation('user', 'images/smiling.svg', 'images/user.svg');">Smile</a>&nbsp;
+  		<a HREF="javascript:void(0)" CLASS="btn btn-danger"  onClick="stopFirstLoadedAnimation(); loadanimation('user', 'images/smiling.svg', 'images/crying.svg');">Crying</a>&nbsp;
+  		<a HREF="javascript:void(0)" CLASS="btn btn-success"  onClick="stopFirstLoadedAnimation(); loadanimation('user', 'images/thinking.svg', 'images/user.svg');">Thinking</a>&nbsp;
+  		<a HREF="javascript:void(0)" CLASS="btn btn-warning"  onClick="stopFirstLoadedAnimation(); loadanimation('user', 'images/angry.svg', 'images/user.svg');">Angry</a>&nbsp;
+	</body>
+</html>

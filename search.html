@@ -1,0 +1,111 @@
+<!doctype html>
+<HTML>
+<HEAD>
+<META CHARSET="UTF-8">
+<TITLE>Help Section</TITLE>
+<link REL="STYLESHEET" HREF="css/bootstrap.css" TYPE="TEXT/CSS">
+<link REL="STYLESHEET" HREF="css/font-awesome.css" TYPE="TEXT/CSS">
+
+</HEAD>
+
+<BODY>
+	<div CLASS="container">
+		<div class="row" STYLE="margin-top:10px;">
+			<div class=" col-lg-4 col-md-6 col-sm-12">
+				<h1>Hi, I am Nik</h1>
+			</div>
+			<div class=" col-lg-3 col-md-6 col-sm-12 col-xs-12 pull-right" style=" margin-top:20px;">
+				<div class="input-group stylish-input-group">
+					<input class="form-control" placeholder="Say..." id="menu" type="text">
+					<span class="input-group-addon">
+						<button type="submit" style="border: 0px none; background: transparent none repeat scroll 0% 0%; padding:0px;" onClick="searchResults(); return false;"> <i class="fa fa-search"></i> </button>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div CLASS="row mrtp40" id="dashboard_menu">
+		</div>
+		<div id="img_loading_div" style="text-align:center">
+			<img src="images/loading.gif"  style="padding:20px; width:195px;"  >
+		</div>
+	</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+var timer="";
+function searchResults(){
+	$('#dashboard_menu').html('');
+	$('#img_loading_div').show();
+	load_data();
+}
+function stopFirstLoadedAnimation(){
+	clearTimeout(timer);
+}
+function loadanimation(id, img1, img2) {
+	var element = document.getElementById(id);
+	
+	if(element.classList.contains('animation')){
+		element.classList.remove("animation");
+		element.src = img2;
+	} else	{
+		element.classList.add("animation");
+		element.src = img1;
+	}
+	
+	timer = setTimeout("loadanimation('"+id+"', '"+img1+"', '"+img2+"')", 1000);
+    return true;
+}
+
+function load_data(){
+	var keyword= $("#menu").val().toLowerCase(); ;
+	var menu_html="";
+	
+	stopFirstLoadedAnimation();
+	
+	if(keyword=="smile")	{
+		menu_html+='<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12"><a class="panel padding-md display-block text-center" href="javascript:void(0)" ><IMG SRC="images/user.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+		loadanimation('smiling_user', 'images/smiling.svg', 'images/user.svg');
+	}
+	else if(keyword=="cry")	{
+		menu_html+='<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12"><a class="panel padding-md display-block text-center" href="javascript:void(0)" ><IMG SRC="images/user.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+		loadanimation('smiling_user', 'images/crying.svg', 'images/user.svg');
+	}
+	else if(keyword=="angry" || keyword=="annoyed" || keyword=="anger")	{
+		menu_html+='<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12"><a class="panel padding-md display-block text-center" href="javascript:void(0)" ><IMG SRC="images/user.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+		loadanimation('smiling_user', 'images/angry.svg', 'images/user.svg');
+	}
+	else if(keyword=="thinking")	{
+		menu_html+='<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12"><a class="panel padding-md display-block text-center" href="javascript:void(0)" ><IMG SRC="images/user.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+		loadanimation('smiling_user', 'images/thinking.svg', 'images/user.svg');
+	}else{
+		menu_html+='<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12"><a class="panel padding-md display-block text-center" href="javascript:void(0)" ><IMG SRC="images/user.svg" id="smiling_user"/></a></div>';
+		$('#dashboard_menu').html(menu_html);
+	}
+	$('#img_loading_div').hide();
+}
+
+$(document).ready(function() {
+	$("#menu").focus();
+	load_data();
+	
+	var typingTimer;                //timer identifier
+	var doneTypingInterval = 1000;  //time in ms, 5 second for example
+	
+	$('#menu').keyup(function(){
+		clearTimeout(typingTimer);
+		if ($('#menu').val) {
+			typingTimer = setTimeout(function(){
+				$('#dashboard_menu').html('');
+				$('#img_loading_div').show();
+				load_data();
+			}, doneTypingInterval);
+		}
+	});			
+});
+</script>
+</BODY>
+</HTML>
